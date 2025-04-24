@@ -1,8 +1,15 @@
 const Post = require('../models/Post');
+const { postValidationSchema } = require('../models/Post');
 
 exports.createPost = async (req, res) => {
     try {
         const { title, content, tags } = req.body;
+
+        const validationResult = postValidationSchema.validate(req.body);
+
+        if (validationResult.error) {
+            return res.status(400).send(error.details[0].message);
+        }
 
         const newPost = new Post({
             title,
@@ -130,5 +137,25 @@ exports.deletePost = async (req, res) => {
     }
 };
 
+exports.searchPost = async (req, res) => {
+    try {
+        const searchTerm = req.query.query;
 
+        if (!searchTerm) {
+            return res.redirect('/'); // Or show all posts
+        }
+
+        const posts = await Post.find({
+            $or: [
+                { title: { $regex: searchTerm, $options: 'i' } },
+                { tags: { $regex: searchTerm, $options: 'i' } }
+            ]
+        });
+
+        res.render('searchResults', { title: 'Search Results', message: `Results for "${searchTerm}"`, posts });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+};
 

@@ -18,4 +18,6 @@ router.post('/deletePost/:postID', postController.deletePost);
 
 router.post('/addPost', postController.createPost);
 
+router.get('/search', postController.searchPost);
+
 module.exports = router;

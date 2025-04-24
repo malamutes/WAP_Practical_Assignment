@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .container.mt-5.pt-5
+    // Search bar at the top
+    .row.mb-4
+      .col-md-8.offset-md-2
+        form(action="/search" method="GET")
+          .input-group
+            input(type="text" class="form-control" name="query" placeholder="Search posts..." aria-label="Search posts")
+            button(type="submit" class="btn btn-primary" id="search-button") Search
+
+    h2.text-center Search Results For #{message}
+
+    .row
+      .col-md-8.offset-md-2
+        .card
+          .card-body
+            h2.text-center= message
+
+            if posts && posts.length
+              .row.mt-4
+                each post in posts
+                  .col-md-12.mb-3
+                    a(href=`/post/${post._id}` style="text-decoration: none; color: inherit;")
+                      .card.shadow-sm
+                        .card-body
+                          h5.card-title= post.title
+                          h6.card-subtitle.text-muted.mb-2 By #{post.author}
+                          p.card-text.text-muted.mb-2 Published on #{new Date(post.date).toLocaleDateString()}
+                          p.card-text= post.content.substring(0, 100) + '...'
+            else
+              p.text-center.text-muted No posts to display.

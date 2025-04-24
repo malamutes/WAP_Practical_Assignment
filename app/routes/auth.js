@@ -3,11 +3,21 @@ const User = require('../models/User');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const { userValidationSchema, userRegistrationSchema } = require('../models/User');
 
 // Register route
 router.post('/register', async (req, res) => {
     const { username, password, confirmPassword } = req.body;
-    console.log(username, password, confirmPassword);
+
+    const validationResult = userRegistrationSchema.validate(req.body);
+
+    if (password !== confirmPassword) {
+        return res.status(400).send("Passwords must match!");
+    }
+
+    if (validationResult.error) {
+        return res.status(400).send(error.details[0].message);
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ username });
@@ -40,6 +50,12 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     console.log(username, password);
+
+    const validationResult = userValidationSchema.validate(req.body);
+
+    if (validationResult.error) {
+        return res.status(400).send(error.details[0].message);
+    }
 
     try {
         const existingUser = await User.findOne({ username });

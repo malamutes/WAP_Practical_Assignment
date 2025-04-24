@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('./models/User');
-const Post = require('./models/Post');
+const { User } = require('./models/User');
+const { Post } = require('./models/Post');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
+const Joi = require('@hapi/joi');
 
 mongoose.connect('mongodb+srv://pavan192004:2mT9wlZpJ338zKzQ@cluster0.rdm1aur.mongodb.net/WAP_Practical_Assignment?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to MongoDB'))

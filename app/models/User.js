@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { required } = require('joi');
+const Joi = require('joi');
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true },
@@ -23,4 +24,14 @@ userSchema.pre('save', async function (next) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+const userRegistrationSchema = Joi.object().keys({
+    username: Joi.string().min(6).max(30).required(),
+    password: Joi.string().min(6).max(30).required(),
+});
+
+const userValidationSchema = Joi.object().keys({
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+});
+
+module.exports = { User, userValidationSchema, userRegistrationSchema };

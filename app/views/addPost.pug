@@ -1,0 +1,24 @@
+extends layout
+
+block content
+   body
+    .container-fluid.d-flex.align-items-center.justify-content-center.min-vh-100
+      .row.w-100
+        .col-md-3.mx-auto
+          .h3 Create New Post!
+          form(action="/addPost" method="POST")
+            .mb-3
+                label(for="title") Title:
+                input(type="text" id="title" name="title" class="form-control" placeholder="Enter title" required)
+            
+            .mb-3
+                label(for="content") Content:
+                textarea(id="content" name="content" class="form-control" placeholder="Enter content" required)
+
+            .mb-3
+                label(for="tags") Tags:
+                textarea(id="tags" name="tags" class="form-control" placeholder="Enter tags separated by commas")
+
+            button(type="submit" class="btn btn-primary") Create Post
+          
+          a.btn.btn-secondary.mt-3(href='/myPosts') Back to My Posts

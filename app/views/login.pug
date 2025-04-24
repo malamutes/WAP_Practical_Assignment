@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  body
+    .container-fluid.d-flex.align-items-center.justify-content-center.min-vh-100
+      .row.w-100
+        .col-md-3.mx-auto
+          .h1 Login Page
+
+          form(action="/login", method="POST")
+            .mb-3
+              label(for="username") Username:
+              input(type="text" id="username" name="username" class="form-control" placeholder="Enter username" required)
+
+            .mb-3
+              label(for="password") Password:
+              input(type="password" id="password" name="password" class="form-control" placeholder="Enter password" required)
+
+            button(type="submit" class="btn btn-primary") Login
+
+          br
+        a(href="/register" class="btn btn-link") Don't have an account? Register here.
+
+
+
+
+

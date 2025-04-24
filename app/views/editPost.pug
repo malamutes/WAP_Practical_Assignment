@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container.mt-5.pt-5
+    h2.text-center.mb-4 Edit Post
+
+    form(action=`/editPost/${post._id}` method="POST")
+      .mb-3
+        label(for="title") Title:
+        input(type="text" id="title" name="title" class="form-control" value=post.title required)
+
+      .mb-3
+        label(for="content") Content:
+        textarea(id="content" name="content" class="form-control" required)= post.content
+
+      .mb-3
+        label(for="tags") Tags (comma-separated):
+        input(type="text" id="tags" name="tags" class="form-control" value=post.tags.join(', '))
+
+      button(type="submit" class="btn btn-primary") Save Changes
+
+    a.btn.btn-secondary.mt-3(href='/myPosts') Back to My Posts

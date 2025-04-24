@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .container.mt-5.pt-5.justify-content-center
+    h2.text-center.mb-4 My Blog Posts
+    
+  .d-flex.justify-content-center.mb-4
+    a.btn.btn-success.text-center.d-block(href="/addPost" style="width: 200px") Add Post
+
+  if posts.length
+    .row.d-flex.justify-content-center
+      each post in posts
+        .col-md-6.col-lg-4.mb-4
+          a(href=`/post/${post._id}`, style="text-decoration: none; color: inherit;")
+            .card.shadow-sm.h-100
+              .card-body
+                h5.card-title= post.title
+                h6.card-subtitle.text-muted.mb-2 By #{post.author}
+                p.card-text.text-muted.mb-2 Published on #{new Date(post.date).toLocaleDateString()}
+                if post.tags && post.tags.length
+                  p.mb-0 
+                    strong Tags: 
+                    span= post.tags.join(', ')
+  else
+    p.text-center.text-muted.d-block.mt-3 No posts found.

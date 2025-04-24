@@ -1,0 +1,35 @@
+extends layout
+
+block content
+   body
+    .container-fluid.d-flex.align-items-center.justify-content-center.min-vh-100
+      .row.w-100
+        .col-md-3.mx-auto
+          h3= message 
+          form(action="/register" method="POST")
+            .mb-3
+              label(for="username") Username:
+              input(type="text" id="username" name="username" class="form-control" placeholder="Enter username" required)
+            .mb-3
+              label(for="password") Password:
+              input(type="password" id="password" name="password" class="form-control" placeholder="Enter password" required)
+            .mb-3
+              label(for="confirmPassword") Confirm Password:
+              input(type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required)
+            button(type="submit" class="btn btn-primary") Register
+          br
+
+          script.
+            document.querySelector('form').addEventListener('submit', function (e) {
+              const pw = document.getElementById('password').value;
+              const confirmPw = document.getElementById('confirmPassword').value;
+
+              if (pw !== confirmPw) {
+                e.preventDefault();
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('password').value = '';
+                alert('Passwords do not match!');
+              }
+            });
+            
+        a(href="/login" class="btn btn-link") Already have an account? Login here.

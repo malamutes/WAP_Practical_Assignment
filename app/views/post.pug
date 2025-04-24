@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .container.mt-5.pt-5
+    .row
+      .col-md-8.mx-auto
+        .card.shadow-sm.mb-4
+          .card-body
+            h2.card-title= post.title
+            h6.card-subtitle.text-muted.mb-3 By #{post.author} - Published on #{new Date(post.date).toLocaleDateString()}
+            p.card-text= post.content
+
+            if post.tags && post.tags.length
+              p.mb-0 
+                strong Tags: 
+                span= post.tags.join(', ')
+
+            
+            if isAuthor
+              .mt-3
+                a.btn.btn-warning.mb-3(href=`/editPost/${post._id}`) Edit
+                form(action=`/deletePost/${post._id}` method="POST")
+                    input(type="hidden" name="_method" value="DELETE")
+                    button(type="submit" class="btn btn-danger") Delete Post
+
+
+        if user
+            a.btn.btn-secondary.mt-3.me-2(href='/myPosts') Back to My Posts
+            a.btn.btn-secondary.mt-3(href='/') Back to Home
+        else
+            a.btn.btn-secondary.mt-3(href='/') Back to Home
+

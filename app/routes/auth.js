@@ -1,9 +1,8 @@
 const express = require('express');
-const User = require('../models/User');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const { userValidationSchema, userRegistrationSchema } = require('../models/User');
+const { User, userValidationSchema, userRegistrationSchema } = require('../models/User');
 
 // Register route
 router.post('/register', async (req, res) => {
@@ -16,7 +15,7 @@ router.post('/register', async (req, res) => {
     }
 
     if (validationResult.error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).send(validationResult.error.details[0].message);
     }
 
     // Check if user already exists
@@ -34,7 +33,8 @@ router.post('/register', async (req, res) => {
 
         req.session.user = {
             username: newUser.username,
-            userId: newUser._id
+            userId: newUser._id,
+            isAdmin: newUser.isAdmin
         };
 
         res.locals.user = req.session.user;
@@ -66,7 +66,8 @@ router.post('/login', async (req, res) => {
                 // Password is correct, log the user in
                 req.session.user = {
                     username: existingUser.username,
-                    userId: existingUser._id
+                    userId: existingUser._id,
+                    isAdmin: existingUser.isAdmin
                 };
 
                 res.locals.user = req.session.user;

@@ -38,6 +38,10 @@ html
                         a.nav-link(href="/register") Register
                     li.nav-item
                         a.nav-link(href="/login") Login
+                
+                if user
+                  if user.isAdmin
+                    a.btn.btn-success.ms-2(href="/adminPanel") Admin Panel
 
     
     block content

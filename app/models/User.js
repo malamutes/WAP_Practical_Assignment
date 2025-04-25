@@ -27,6 +27,7 @@ const User = mongoose.model('User', userSchema);
 const userRegistrationSchema = Joi.object().keys({
     username: Joi.string().min(6).max(30).required(),
     password: Joi.string().min(6).max(30).required(),
+    confirmPassword: Joi.string().valid(Joi.ref('password')).required()
 });
 
 const userValidationSchema = Joi.object().keys({

@@ -8,6 +8,7 @@ const { User } = require('./models/User');
 const { Post } = require('./models/Post');
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
+const adminRoutes = require('./routes/admin');
 const Joi = require('@hapi/joi');
 
 mongoose.connect('mongodb+srv://pavan192004:2mT9wlZpJ338zKzQ@cluster0.rdm1aur.mongodb.net/WAP_Practical_Assignment?retryWrites=true&w=majority&appName=Cluster0')
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 });
 app.use(authRoutes);
 app.use(postRoutes);
+app.use(adminRoutes);
 
 passport.use(new LocalStrategy({
     usernameField: 'username',

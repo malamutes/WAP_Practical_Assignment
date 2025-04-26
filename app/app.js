@@ -70,7 +70,7 @@ app.get('/', async function (req, res) {
     try {
         let message = "";
         if (!req.session.user) {
-            message = "Welcome to Pug + Express";
+            message = "Welcome to my blog website";
         } else {
             message = req.session.message;
         }

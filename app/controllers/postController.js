@@ -8,7 +8,7 @@ exports.createPost = async (req, res) => {
         const validationResult = postValidationSchema.validate(req.body);
 
         if (validationResult.error) {
-            return res.status(400).send(error.details[0].message);
+            return res.status(400).send(validationResult.error.details[0].message);
         }
 
         const newPost = new Post({

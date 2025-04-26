@@ -12,7 +12,8 @@ const postSchema = new mongoose.Schema({
 
 const postValidationSchema = Joi.object().keys({
     title: Joi.string().required(),
-    content: Joi.string().required()
+    content: Joi.string().required(),
+    tags: Joi.string().allow('').optional()
 });
 
 const Post = mongoose.model('Post', postSchema);

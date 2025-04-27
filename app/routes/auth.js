@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
     }
 
     if (validationResult.error) {
-        return res.status(400).send(validationResult.error.details[0].message);
+        res.render('register', { message: "Passwords and usernames need to be at least 6 chars long!" });
     }
 
     // Check if user already exists
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
     const validationResult = userValidationSchema.validate(req.body);
 
     if (validationResult.error) {
-        return res.status(400).send(validationResult.error.details[0].message);
+        res.render('login', { message: "Invalid credentials!" });
     }
 
     try {

@@ -5,7 +5,9 @@ block content
     .container-fluid.d-flex.align-items-center.justify-content-center.min-vh-100
       .row.w-100
         .col-md-3.mx-auto
-          h3= message 
+          if message
+            .alert.alert-danger= message
+            
           form(action="/register" method="POST")
             .mb-3
               label(for="username") Username:

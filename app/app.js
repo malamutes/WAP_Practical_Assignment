@@ -85,13 +85,16 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-    res.render('login', { title: "hello pug", message: 'LGIN PAGE' });
+    res.render('login');
 });
 
 app.get('/register', function (req, res) {
-    res.render('register', { title: "hello pug", message: 'CREATE PAGE' });
+    res.render('register');
 });
 
+app.use((req, res, next) => {
+    res.status(404).render('error', { message: 'Page not found!' });
+});
 
 app.listen(3000, function () {
     console.log('Server running at http://localhost:3000');

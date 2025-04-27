@@ -6,7 +6,9 @@ block content
       .row.w-100
         .col-md-3.mx-auto
           .h1 Login Page
-
+          if message
+            .alert.alert-danger= message
+            
           form(action="/login", method="POST")
             .mb-3
               label(for="username") Username:

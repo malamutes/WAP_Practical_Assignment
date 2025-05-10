@@ -11,7 +11,7 @@ const postRoutes = require('./routes/post');
 const adminRoutes = require('./routes/admin');
 const Joi = require('@hapi/joi');
 
-mongoose.connect('mongodb+srv://pavan192004:2mT9wlZpJ338zKzQ@cluster0.rdm1aur.mongodb.net/WAP_Practical_Assignment?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('MONGODB URL')
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB', err));
 
